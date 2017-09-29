@@ -123,4 +123,25 @@ class SurveyController extends Controller
         $survey->confirmEditSurvey($request->request->all(),$digit);
         return $this->render('Survey/controlls.html.twig', array('digit' => $digit));
     }
+
+    /**
+     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}", name="addanswer_survey", requirements={"digit": "\d+"})
+     */
+    public function addAnswerAction(Request $request, $digit, $digit2)
+    {
+        $survey = new Survey();
+        $survey->addAnswer($digit2);
+        return $this->render('Survey/controlls.html.twig');
+    }
+
+    /**
+     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}/confirm", name="confirmaddanswer_survey", requirements={"digit": "\d+", "digit2": "\d+"})
+     */
+    public function confirmAddAnswerAction(Request $request,$digit, $digit2)
+    {
+        $survey = new Survey();
+        $survey->confirmAddAnswer($request->request->all(),$digit2);
+        return $this->render('Survey/controlls.html.twig');
+    }
+
 }

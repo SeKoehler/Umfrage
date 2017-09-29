@@ -209,7 +209,7 @@ class Survey
         $sql = 'SELECT MAX(survey.questions.questionId) AS maxId FROM survey.questions';
         $result = mysql_query($sql, $database);
         $maxId = mysql_fetch_array($result, MYSQL_ASSOC);
-        echo $maxId['maxId'];
+        //echo $maxId['maxId'];
 
         foreach ($question AS $answer)
         {
@@ -291,19 +291,21 @@ class Survey
             $sql = 'Select answerId, answer FROM survey.answers WHERE survey.answers.questionId = ' . $row['questionId'];
             $result3 = mysql_query($sql,$database);
 
+            echo '<br>';
             echo '<label>' . $zaehler++ . '. Frage: </label>';
             echo '<input type="text" name="question' . $row['questionId'] . '" value="' . $row['question'] . '" size="30">';
             echo '<br>';
             echo '<br>';
             echo '<label>Antworten:</label><br>';
 
-            while($row = mysql_fetch_array($result3,MYSQL_ASSOC))
+            while($row2 = mysql_fetch_array($result3,MYSQL_ASSOC))
             {
-                echo '<input type="text" name="' . $row['answerId'] . '" value="' . $row['answer'] . '">';
+                echo '<input type="text" name="' . $row2['answerId'] . '" value="' . $row2['answer'] . '">';
                 echo '<br>';
             }
             echo '<br>';
-
+            echo '<button formaction="bearbeiten/antwort_hinzufuegen/' . $row['questionId'] . '" type="submit" name="button' . $row['questionId'] . '" value="' . $row['questionId'] . '">Antwort hinzufügen</button>';
+            echo '<br>';
         }
 
         echo '<button type="submit">Absenden</button>';
@@ -350,11 +352,30 @@ class Survey
                 //echo $array[$row2['answerId']] . '<br>';
             }
         }
+    }
 
+    public function addAnswer($questionId)
+    {
+        echo '<h1>Bitte geben Sie ihre Antwort ein:</h1><br>';
+        //var_dump($questionId);
 
-        //echo $array['surveyname'] . '<br>';
-        //echo $array['question' . "1" ] . '<br>';
-        //var_dump($array);
+        echo '<body>
+                <form action="' . $questionId . '/confirm" method="post">
+                <input type="text" name="answer">
+                <button type="submit">Absenden</button>
+                </form>
+            </body>';
+    }
+
+    public function confirmAddAnswer($answer,$questionId)
+    {
+        $database = mysql_connect('mysql', 'root', 'test123') or die('no connection');
+        mysql_select_db('survey', $database);
+
+        $sql = 'INSERT INTO survey.answers (questionId,answer) VALUES ("' . $questionId .'","' . $answer['answer'] . '")';
+        mysql_query($sql,$database);
+        echo $answer['answer'] . ' als Antwort hinzugefügt!<br>';
+
     }
 };
 
