@@ -1,0 +1,18 @@
+web:
+  build: ./docker
+  ports:
+     - "8485:80"
+  links:
+      - mysql
+  volumes:
+   - ./src/:/var/www
+mysql:
+  image: mysql:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: "test123"
+    MYSQL_USER: "developer"
+    MYSQL_PASSWORD: "test123"
+    MYSQL_DATABASE: "testdb"
+    MYSQL_CLIENT: '%.%.%.%'
+  ports:
+    - "3306:3306"
