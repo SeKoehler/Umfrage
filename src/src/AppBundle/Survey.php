@@ -215,8 +215,8 @@ class Survey
         {
             $sql = 'INSERT INTO survey.answers (questionId, answer) VALUES ("' . $maxId['maxId'] . '","' . $answer .'")';
             mysql_query($sql,$database);
-            echo $sql;
-            echo $answer;
+            //echo $sql;
+            //echo $answer;
         }
 
     }
@@ -239,7 +239,7 @@ class Survey
         $sql = 'INSERT INTO survey.questions (question) VALUES ("' . $array[0] . '")';
         mysql_query($sql,$database);
 
-        echo $array[1];
+        //echo $array[1];
 
         for($i=0;$i<$array[1];$i++)
         {
