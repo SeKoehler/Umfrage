@@ -1,9 +1,8 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
+{% extends 'Survey/index.html.twig' %}
 
-    </head>
+{% block body %}{% endblock%}
 
+{% block controlls %}
     <body>
         <form action="/umfrage/{{ digit }}/bearbeiten">
             <button type="submit">Bearbeiten</button>
@@ -20,6 +19,6 @@
         <form action="/umfrage/start">
             <button type="submit">Umfrageübersicht</button>
         </form>
-
     </body>
-</html>
+{% endblock %}
+

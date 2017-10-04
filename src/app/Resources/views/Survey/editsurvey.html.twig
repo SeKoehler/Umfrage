@@ -1,0 +1,36 @@
+{% extends 'Survey/controlls.html.twig' %}
+
+{% block body %}
+    <br>
+    <form action="bearbeiten/confirm" method="post">
+
+
+        <label>Umfragebezeichnung: </label>
+        <input type="text" name="surveyname" value="{{ allresults.survey.surveyname }}" size="30"><br><br>
+
+
+        {% for Questions in allresults.questions %}
+            <br>Frage:
+            <input type="text" name="question{{ Questions.questionId }}" value="{{ Questions.question }}" size="30"><br>
+            {% block answers %}
+                <table>
+                    {% for row in Questions.answers %}
+                        <tr>
+                            <td></td>
+                            <td><input type="text" name="Antwort{{ Questions.questionId }}" value="{{ row.answer }}" size="30"></td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            {% endblock %}
+        {% endfor %}
+        {% block button %}
+            <button type="submit">Absenden</button>
+        {% endblock %}
+    </form>
+    <br>
+
+{% endblock%}

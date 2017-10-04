@@ -24,8 +24,9 @@ class SurveyController extends Controller
     public function surveyChoiceAction()
     {
         $survey = new Survey();
-        $survey->showAllSurvey();
-        return $this->render('Survey/controlls.html.twig');
+        $surveys= $survey->showAllSurvey();
+
+        return $this->render('Survey/showsurvey.html.twig', array('result' => $surveys));
     }
 
     /**
@@ -34,8 +35,9 @@ class SurveyController extends Controller
     public function surveyQuestionAction($digit)
     {
         $survey = new Survey();
-        $survey->surveyQuestions($digit);
-        return $this->render('Survey/controlls2.html.twig', array('digit' => $digit));
+        $questions= $survey->surveyQuestions($digit);
+
+        return $this->render('Survey/showquestions.html.twig', array('allresults' => $questions, 'digit' => $digit));
     }
 
     /**
@@ -54,8 +56,8 @@ class SurveyController extends Controller
     public function surveyStatisticAction($digit)
     {
         $survey = new Survey();
-        $survey->surveyStatistics($digit);
-        return $this->render('Survey/controlls2.html.twig', array('digit' => $digit));
+        $statistics = $survey->surveyStatistics($digit);
+        return $this->render('Survey/showstatistics.html.twig', array('allresults' => $statistics,'digit' => $digit));
     }
 
     /**
@@ -110,8 +112,8 @@ class SurveyController extends Controller
     public function editSurveyAction($digit)
     {
         $survey = new Survey();
-        $survey->editSurvey($digit);
-        return $this->render('Survey/controlls.html.twig', array('digit' => $digit));
+        $edit = $survey->editSurvey($digit);
+        return $this->render('Survey/editsurvey.html.twig', array('digit' => $digit, 'allresults' => $edit));
     }
 
     /**
@@ -127,11 +129,9 @@ class SurveyController extends Controller
     /**
      * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}", name="addanswer_survey", requirements={"digit": "\d+"})
      */
-    public function addAnswerAction(Request $request, $digit, $digit2)
+    public function addAnswerAction($digit2)
     {
-        $survey = new Survey();
-        $survey->addAnswer($digit2);
-        return $this->render('Survey/controlls.html.twig');
+        return $this->render('Survey/addanswer.html.twig', array('digit2' => $digit2));
     }
 
     /**

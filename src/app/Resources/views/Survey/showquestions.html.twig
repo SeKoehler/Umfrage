@@ -1,0 +1,32 @@
+{% extends 'Survey/controlls2.html.twig' %}
+
+{% block body %}
+    <br>
+    <form action="/umfrage/ende" method="post">
+
+
+        {%  for Questions in allresults %}
+
+            <br>Frage: {{ Questions.question }}<br>
+            {% block answers %}
+            <table>
+                {% for row in Questions.answers %}
+                <tr>
+                    <td></td>
+                    <td><input type="radio" name="Antwort{{ Questions.questionId }}" value="{{ row.answerId }}">{{ row.answer }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            {% endblock %}
+        {% endfor %}
+        {% block button %}
+            <button type="submit">Absenden</button>
+        {% endblock %}
+    </form>
+    <br>
+
+{% endblock%}

@@ -1,0 +1,23 @@
+{% extends 'Survey/showquestions.html.twig' %}
+
+
+{% block answers %}
+    Bereits {{ Questions.asked }} Leute zu dieser Umfrage befragt!<br>
+    <table>
+        {% for row in Questions.answers %}
+            <tr>
+                <td>{{ row.answer }}</td>
+                <td>{{ row.chosen }}</td>
+                <td>{{ row.average }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}

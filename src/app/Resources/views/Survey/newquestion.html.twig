@@ -1,14 +1,20 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <h1>Bitte geben Sie ihre Frage und die Anzahl der Antworten ein:</h1>
-    </head>
+{% extends 'Survey/index.html.twig' %}
 
+{% block title %}Neue Frage{% endblock %}
+
+{% block body %}<h1>Bitte geben Sie ihre Frage und die Anzahl der Antworten ein:</h1>{% endblock%}
+
+{% block controlls %}
     <body>
         <form action="/umfrage/neue_frage/start" method="post">
-            <input type="text" name="question">
-            <input type="text" name="answerNumber">
+            <label>Frage:</label><br>
+            <input type="text" name="question" size="30"><br><br>
+            <label>Anzahl Antworten:</label><br>
+            <input type="text" name="answerNumber" size="30"><br><br>
             <button type="submit">Absenden</button>
         </form>
     </body>
-</html>
+{% endblock %}
+
+
+
