@@ -1,21 +1,24 @@
 <!DOCTYPE HTML>
     <html>
         <head>
-    
+            <title> {% block title %}Meine Umfrage{% endblock %}</title>
         </head>
     
         <body>
-            <p>Hier steht etwas</p>
-            <form action="umfrage/start">
-                <button type="submit">Umfrage starten</button>
-            </form>
+            {% block body %}Hier steht etwas{% endblock %}
 
-            <form action="umfrage/neue_kategorie">
-                <button type="submit">Neue Kategorie erstellen</button>
-            </form>
+            {% block controlls %}
+                <form action="umfrage/start">
+                    <button type="submit">Umfrage starten</button>
+                </form>
 
-            <form action="umfrage/neue_frage">
-                <button type="submit">Neue Frage erstellen</button>
-            </form>
+                <form action="umfrage/neue_kategorie">
+                    <button type="submit">Neue Kategorie erstellen</button>
+                </form>
+
+                <form action="umfrage/neue_frage">
+                    <button type="submit">Neue Frage erstellen</button>
+                </form>
+            {% endblock %}
         </body>
     </html>

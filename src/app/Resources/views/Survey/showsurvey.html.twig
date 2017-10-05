@@ -1,0 +1,16 @@
+{% extends 'Survey/controlls.html.twig' %}
+
+{% block body %}
+    <br><table>
+    <tr>
+        <th>ID</th>
+        <th>Umfragebezeichnung</th>
+    </tr>
+    {%  for row in result %}
+    <tr>
+         <td>{{ row.surveyId }}</td>
+         <td><a href="/umfrage/{{ row.surveyId }}">{{ row.surveyname }}</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock%}
