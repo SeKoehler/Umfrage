@@ -183,7 +183,6 @@ class Survey
         {
             $sql = 'INSERT INTO survey.survey (surveyname) VALUES ("' . $newSurvey .'")';
             mysql_query($sql,$database);
-            //echo $sql;
             echo $newSurvey . 'wurde als neue Kategorie hinzugefügt!';
         }
     }
@@ -196,14 +195,11 @@ class Survey
         $sql = 'SELECT MAX(survey.questions.questionId) AS maxId FROM survey.questions';
         $result = mysql_query($sql, $database);
         $maxId = mysql_fetch_array($result, MYSQL_ASSOC);
-        //echo $maxId['maxId'];
 
         foreach ($question AS $answer)
         {
             $sql = 'INSERT INTO survey.answers (questionId, answer) VALUES ("' . $maxId['maxId'] . '","' . $answer .'")';
             mysql_query($sql,$database);
-            //echo $sql;
-            //echo $answer;
         }
 
     }
@@ -226,7 +222,6 @@ class Survey
         $sql = 'INSERT INTO survey.questions (question) VALUES ("' . $array[0] . '")';
         mysql_query($sql,$database);
 
-        //echo $array[1];
 
         for($i=0;$i<$array[1];$i++)
         {
@@ -254,14 +249,10 @@ class Survey
 
         $subresults = array();
         $allresults = array();
-        //echo '<form action="bearbeiten/confirm" method="post">';
 
         while($row =  mysql_fetch_array($result1, MYSQL_ASSOC)) {
 
             $category = new SurveyCategory($surveyId, $row['surveyname']);
-            /*echo '<label>Umfragebezeichnung: </label>';
-            echo '<input type="text" name="surveyname" value="' . $row['surveyname'] . '" size="30">';
-            echo '<br><br>';*/
         }
 
         $sql = 'Select * FROM questions INNER JOIN surveypackage ON questions.questionId = surveypackage.questionId
@@ -287,31 +278,16 @@ class Survey
             $cQuestion->questionId = $row2['questionId'];
             $cQuestion->question = $row2['question'];
 
-            /*echo '<br>';
-            echo '<label>' . $zaehler++ . '. Frage: </label>';
-            echo '<input type="text" name="question' . $row2['questionId'] . '" value="' . $row2['question'] . '" size="30">';
-            echo '<br>';
-            echo '<br>';
-            echo '<label>Antworten:</label><br>';*/
-
             while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC))
             {
                 $cQuestion->answers[] = $row3;
-                /*echo '<input type="text" name="' . $row3['answerId'] . '" value="' . $row3['answer'] . '">';
-                echo '<br>';*/
             }
 
             $subresults[$zaehler++]=$cQuestion;
             $allresults['survey']=$category;
             $allresults['questions']=$subresults;
-            /*echo '<br>';
-            echo '<button formaction="bearbeiten/antwort_hinzufuegen/' . $row2['questionId'] . '" type="submit" name="button' . $row2['questionId'] . '" value="' . $row['questionId'] . '">Antwort hinzufügen</button>';
-            echo '<br>';*/
         }
         return $allresults;
-        /*echo '<button type="submit">Absenden</button>';
-        echo '</form>';
-        echo '<br>';*/
     }
 
     public function confirmEditSurvey($array,$surveyId)
@@ -325,9 +301,9 @@ class Survey
         $sql = 'Select * FROM questions INNER JOIN surveypackage ON questions.questionId = surveypackage.questionId
                 WHERE surveypackage.surveyId = ' . $surveyId . ' ORDER BY surveypackage.ID';
         $result1= mysql_query($sql,$database);
-        //echo $sql . '<br>';
-        //echo $result;
+
         echo 'Änderungen:<br><br>';
+
         while($row = mysql_fetch_array($result,MYSQL_ASSOC))
         {
             echo $row['surveyname'] . ' => ' . $array['surveyname'] . '<br>';

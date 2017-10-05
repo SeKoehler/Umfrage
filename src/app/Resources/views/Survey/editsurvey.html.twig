@@ -17,7 +17,7 @@
                     {% for row in Questions.answers %}
                         <tr>
                             <td></td>
-                            <td><input type="text" name="Antwort{{ Questions.questionId }}" value="{{ row.answer }}" size="30"></td>
+                            <td><input type="text" name="{{ row.answerId }}" value="{{ row.answer }}" size="30"></td>
                         </tr>
                     {% endfor %}
                     <tr>

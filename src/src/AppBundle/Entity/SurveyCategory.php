@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle;
+namespace AppBundle\Entity;
 
 class SurveyCategory
 {
@@ -9,8 +9,8 @@ class SurveyCategory
         $this->surveyname = $surveyname;
     }
 
-    public $surveyId = 0;
+    private $surveyId;
 
-    public $surveyname = "";
+    private $surveyname;
 
 }
