@@ -3,16 +3,15 @@
 {% block body %}
     <br>
     <form action="/umfrage/ende" method="post">
+        <h1>{{ allresults.surveyname }}</h1><br>
 
-
-        {%  for Questions in allresults %}
+        {%  for Questions in allresults.questions %}
 
             <br>Frage: {{ Questions.question }}<br>
             {% block answers %}
             <table>
                 {% for row in Questions.answers %}
                 <tr>
-                    <td></td>
                     <td><input type="radio" name="Antwort{{ Questions.questionId }}" value="{{ row.answerId }}">{{ row.answer }}</td>
                 </tr>
                 {% endfor %}

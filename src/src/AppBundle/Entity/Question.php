@@ -3,12 +3,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+* @ORM\Entity
+* @ORM\Table(name="questions")
+*/
 class Question
 {
-    /**
-    * @ORM\Entity
-    * @ORM\Table(name="questions")
-    */
 
     public function __construct($questionId, $question, $answers)
     {
@@ -24,34 +24,42 @@ class Question
      */
     private $questionId = 0;
 
+    public function getquestionId()
+    {
+        return $this->questionId;
+    }
+
+    public function setquestionId($questionId)
+    {
+        $this->questionId = $questionId;
+    }
+
     /**
      * @ORM\Column(type="string", length=200)
      */
     private $question = "";
 
-    private $answers = array();
-
-    public $asked = 0;
-
-    /*public function setQuestion($text)
+    public function getquestion()
     {
-        $this->question = $text;
+        return $this->question;
     }
 
-    public function getQuestion()
+    public function setquestion($question)
     {
-        $Question=$this->question;
-        return $Question;
+        $this->question = $question;
     }
 
-    public function setAnswers($array)
+    /*private $answers = array();
+
+    public function getanswers()
     {
-        $this->answers=$array;
+        return $this->answers;
     }
 
-    public function getAnswers()
+    public function setanswers($answers)
     {
-        $Array[]=$this->answers;
-        return $Array;
-    }*/
+        $this->answers = $answers;
+    }
+
+    public $asked = 0;*/
 }
