@@ -109,7 +109,7 @@ class SurveyController extends Controller
         $em->persist($newsurvey);
         $em->flush();
 
-        return $this->render('Survey/controlls.html.twig');
+        return $this->render('Survey/confirmaddnewsurvey.html.twig', array('surveyname' => $array['surveyname']));
     }
 
     /**
@@ -152,7 +152,7 @@ class SurveyController extends Controller
         $em->persist($newquestion);
         $em->flush();
 
-        return $this->render('Survey/controlls.html.twig');
+        return $this->render('Survey/confirmaddnewquestion.html.twig');
     }
 
     /**
@@ -211,7 +211,7 @@ class SurveyController extends Controller
         $em->flush();
 
 
-        return $this->render('Survey/controlls.html.twig');
+        return $this->render('Survey/confirmaddanswer.html.twig');
     }
 
 }
