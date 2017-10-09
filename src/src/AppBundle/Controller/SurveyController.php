@@ -30,9 +30,7 @@ class SurveyController extends Controller
      */
     public function surveyChoiceAction()
     {
-        $repository = $this->getDoctrine()->getRepository(SurveyCategory::class);
-        //$survey = new Survey();
-        //$surveys= $survey->showAllSurvey();
+        $repository = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class);
         $surveys = $repository->findAll();
 
         return $this->render('Survey/showsurvey.html.twig', array('result' => $surveys));
@@ -43,8 +41,6 @@ class SurveyController extends Controller
      */
     public function surveyQuestionAction($digit)
     {
-        //$survey = new Survey();
-        //$questions= $survey->surveyQuestions($digit);
         $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
@@ -61,8 +57,18 @@ class SurveyController extends Controller
      */
     public function surveyEndAction(Request $request)
     {
-        $survey = new Survey();
-        $survey->surveyChoices($request->request->all());
+        $em = $this->getDoctrine()->getManager();
+
+        $choices = $request->request->all();
+
+        foreach ($choices as $choice)
+        {
+            $mychoice = $this->getDoctrine()->getRepository(Answers::class)->find($choice);
+            $mychoice->setChosen($mychoice->getChosen()+1);
+            $em->persist($mychoice);
+
+        }
+        $em->flush();
         return $this->render('Survey/controlls.html.twig');
     }
 
@@ -71,9 +77,6 @@ class SurveyController extends Controller
      */
     public function surveyStatisticAction($digit)
     {
-        /*$survey = new Survey();
-        $statistics = $survey->surveyStatistics($digit);
-        return $this->render('Survey/showstatistics.html.twig', array('allresults' => $statistics,'digit' => $digit));*/
         $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
@@ -98,36 +101,57 @@ class SurveyController extends Controller
      */
     public function surveyCategoryAddAction(Request $request)
     {
-        $survey = new Survey();
-        $survey->newSurvey($request->request->all());
+        $array = $request->request->all();
+
+        $newsurvey = new \AppBundle\Entity\Survey();
+        $newsurvey->setSurveyname($array['surveyname']);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newsurvey);
+        $em->flush();
+
         return $this->render('Survey/controlls.html.twig');
     }
 
     /**
-     * @Route("/umfrage/neue_frage", name="newquestion_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/", name="newquestion_survey")
      */
-    public function surveyNewQuestionAction()
+    public function surveyNewQuestionAction($digit)
     {
-        return $this->render('Survey/newquestion.html.twig');
+        return $this->render('Survey/newquestion.html.twig', array('digit' => $digit));
     }
 
     /**
-     * @Route("/umfrage/neue_frage/start", name="newquestionstart_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/start", name="newquestionstart_survey")
      */
-    public function surveyNewQuestionStartAction(Request $request)
+    public function surveyNewQuestionStartAction(Request $request, $digit)
     {
-        $survey = new Survey();
-        $survey->newQuestion($request->request->all());
-        return $this->render('Survey/controlls.html.twig');
+        $array = $request->request->all();
+
+        $answernumber = (int)$array['answerNumber'];
+        return $this->render('Survey/newquestionanswers.html.twig', array('answernumber' => $answernumber, 'digit' => $digit, 'question' => $array['question']));
     }
 
     /**
-     * @Route("/umfrage/neue_frage/hinzufuegen", name="questionadd_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/hinzufuegen/{digit2}", name="newquestionadd_survey")
      */
-    public function surveyNewQuestionAddAction(Request $request)
+    public function surveyNewQuestionAddAction(Request $request, $digit, $digit2)
     {
-        $survey = new Survey();
-        $survey->newQuestionAdd($request->request->all());
+        $em = $this->getDoctrine()->getManager();
+        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $array = $request->request->all();
+        $newsurvey = new Survey();
+        $newquestion = $newsurvey->addNewQuestion($array,$survey,$digit2);
+
+        $answers = $newquestion->getAnswers();
+
+        foreach ($answers as $answer)
+        {
+            $em->persist($answer);
+        }
+
+        $em->persist($newquestion);
+        $em->flush();
+
         return $this->render('Survey/controlls.html.twig');
     }
 
@@ -136,17 +160,12 @@ class SurveyController extends Controller
      */
     public function editSurveyAction($digit)
     {
-        /*$survey = new Survey();
-        $edit = $survey->editSurvey($digit);
-        return $this->render('Survey/editsurvey.html.twig', array('digit' => $digit, 'allresults' => $edit));*/
-
         $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 
         $newsurvey = new Survey();
         $newsurvey->buildSurvey($survey,$questions,$answers);
-
 
         return $this->render('Survey/editsurvey.html.twig', array('allresults' => $survey, 'digit' => $digit));
     }
@@ -156,9 +175,6 @@ class SurveyController extends Controller
      */
     public function confirmEditSurveyAction(Request $request, $digit)
     {
-        /*$survey = new Survey();
-        $survey->confirmEditSurvey($request->request->all(),$digit);
-        return $this->render('Survey/controlls.html.twig', array('digit' => $digit));*/
         $em = $this->getDoctrine()->getManager();
         $array = $request->request->all();
         $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
@@ -185,10 +201,16 @@ class SurveyController extends Controller
     /**
      * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}/confirm", name="confirmaddanswer_survey", requirements={"digit": "\d+", "digit2": "\d+"})
      */
-    public function confirmAddAnswerAction(Request $request,$digit, $digit2)
+    public function confirmAddAnswerAction(Request $request, $digit2)
     {
         $survey = new Survey();
-        $survey->confirmAddAnswer($request->request->all(),$digit2);
+        $question = $this->getDoctrine()->getRepository(Questions::class)->findOneByquestionId($digit2);
+        $answer = $survey->addNewAnswer($request->request->all(),$question,1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($answer);
+        $em->flush();
+
+
         return $this->render('Survey/controlls.html.twig');
     }
 

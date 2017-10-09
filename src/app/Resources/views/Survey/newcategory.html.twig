@@ -1,16 +1,14 @@
-{% extends 'Survey/index.html.twig' %}
+{% extends 'Survey/controlls.html.twig' %}
 
 {% block title %}Neue Kategorie{% endblock %}
 
-{% block body %}{% endblock%}
+{% block body %}
+    <h1>Geben Sie die neue Kategorie der Umfrage ein:</h1><br><br>
+    <form action="/umfrage/neue_kategorie/hinzufuegen" method="post">
+        <input type="text" name="surveyname">
+        <button type="submit">Absenden</button>
+    </form>
 
-{% block controlls %}
-    <body>
-        <form action="/umfrage/neue_kategorie/hinzufuegen" method="post">
-            <input type="text" name="newCategory">
-            <button type="submit">Absenden</button>
-        </form>
-    </body>
-{% endblock %}
+{% endblock%}
 
 

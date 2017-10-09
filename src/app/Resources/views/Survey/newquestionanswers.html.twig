@@ -1,0 +1,18 @@
+{% extends 'Survey/controlls.html.twig' %}
+
+{% block title %}Neue Frage{% endblock %}
+
+{% block body %}
+    <h1>Bitte geben Sie ihre Antworten ein:</h1>
+
+    <form action="/umfrage/{{ digit }}/bearbeiten/neue_frage/hinzufuegen/{{ answernumber }}" method="post">
+        <label>Frage:</label><br>
+        <input type="text" name="question" value="{{ question }}" size="50" readonly><br><br>
+        <label>Antworten: </label><br>
+    {% for zaehler in range(1, answernumber ) %}
+        <input type="text" name="answer{{ zaehler }}" size="30"><br><br>
+    {% endfor %}
+        <button type="submit">Absenden</button>
+    </form>
+
+{% endblock%}
