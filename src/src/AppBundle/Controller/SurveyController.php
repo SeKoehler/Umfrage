@@ -127,7 +127,7 @@ class SurveyController extends Controller
     {
         $array = $request->request->all();
 
-        $answernumber = (int)$array['answerNumber'];
+        $answernumber = $array['answerNumber'];
         return $this->render('Survey/newquestionanswers.html.twig', array('answernumber' => $answernumber, 'digit' => $digit, 'question' => $array['question']));
     }
 
@@ -176,14 +176,13 @@ class SurveyController extends Controller
     public function confirmEditSurveyAction(Request $request, $digit)
     {
         $em = $this->getDoctrine()->getManager();
-        $array = $request->request->all();
         $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 
         $newsurvey = new Survey();
         $newsurvey->buildSurvey($survey,$questions,$answers);
-        $surveynew = $newsurvey->newEditSurvey($survey,$array);
+        $surveynew = $newsurvey->newEditSurvey($survey,$request->request->all());
         $em->persist($survey);
         $em->flush();
 
