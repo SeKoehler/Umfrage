@@ -68,8 +68,6 @@ class Survey
                $answer->setAverage($average);
                $answers[$zaehler++]=$answer;
            }
-
-
         }
 
 
@@ -98,7 +96,6 @@ class Survey
 
     public function addNewAnswer($answer, $question, $number)
     {
-        //var_dump($question);
         $newanswer = new Answers();
         $newanswer->setAnswer($answer['answer'. $number]);
         $newanswer->setChosen(0);
