@@ -3,10 +3,10 @@
 {% block title %}Neue Frage{% endblock %}
 
 {% block body %}
-    <h1>Bitte geben Sie ihre Frage und die Anzahl der Antworten ein:</h1>
+    <h1>Bitte geben Sie ihre Antworten ein:</h1>
 
 
-    <form action="/umfrage/{{ digit }}/bearbeiten/neue_frage/start" method="post">
+    <form action="/umfrage/{{ digit }}/bearbeiten/neue_frage/hinzufuegen" method="post">
         <label>Frage:</label><br>
         <input type="text" name="question" size="30"><br><br>
         <label>Anzahl Antworten:</label><br>
@@ -16,7 +16,4 @@
 
 
 {% endblock%}
-
-
-
 

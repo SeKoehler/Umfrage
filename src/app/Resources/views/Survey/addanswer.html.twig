@@ -1,14 +1,13 @@
-{% extends 'Survey/index.html.twig' %}
+{% extends 'Survey/controlls.html.twig' %}
 
 {% block title %}Neue Antwort{% endblock %}
 
-{% block body %}<h1>Bitte geben Sie ihre Antwort ein:</h1>{% endblock%}
+{% block body %}
+    <h1>Bitte geben Sie ihre Antwort ein:</h1>
 
-{% block controlls %}
-    <body>
-        <form action="{{ digit2 }}/confirm" method="post">
-            <input type="text" name="answer"><br><br>
-            <button type="submit">Absenden</button>
-        </form>
-    </body>
-{% endblock %}
+    <form action="{{ digit2 }}/confirm" method="post">
+        <input type="text" name="answer1"><br><br>
+        <button type="submit">Absenden</button>
+    </form>
+
+{% endblock%}

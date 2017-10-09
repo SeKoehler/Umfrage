@@ -1,0 +1,22 @@
+{% extends 'Survey/controlls.html.twig' %}
+
+{% block title %}Änderungen bestätigt{% endblock  %}
+
+{% block body %}
+
+    <h1>Änderungen:</h1>
+
+    Kategorie: {{ oldresults.surveyname }} => {{ newresults.surveyname }} <br><br>
+    {% set questionindex=0 %}
+    {% for Question in newresults.questions %}
+        Frage: {{ oldresults.questions[questionindex].question }} => {{ Question.question }} <br>
+        {% set answerindex=0 %}
+        {% for Answer in Question.answers %}
+            Antwort: {{ oldresults.questions[questionindex].answers[answerindex].answer }}=> {{ Answer.answer }}<br>
+            {% set answerindex=answerindex+1 %}
+        {% endfor %}
+        {% set questionindex =questionindex+1 %}
+        <br>
+    {% endfor %}
+
+{% endblock %}
