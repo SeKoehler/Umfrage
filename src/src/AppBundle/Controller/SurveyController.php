@@ -57,10 +57,10 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/ende",
+     * @Route("/umfrage/{digit}/ende",
      *      name="endof_survey")
      */
-    public function surveyEndAction(Request $request)
+    public function surveyEndAction(Request $request, $digit)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -74,7 +74,7 @@ class SurveyController extends Controller
 
         }
         $em->flush();
-        return $this->render('Survey/controlls.html.twig');
+        return $this->render('Survey/confirmchoices.html.twig', array('digit' => $digit));
     }
 
     /**

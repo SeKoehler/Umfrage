@@ -2,7 +2,7 @@
 
 {% block body %}
     <br>
-    <form action="/umfrage/ende" method="post">
+    <form action="/umfrage/{{ digit }}/ende" method="post">
         <h1>{{ allresults.surveyname }}</h1><br>
 
         {%  for Questions in allresults.questions %}
