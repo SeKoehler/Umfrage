@@ -18,7 +18,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class SurveyController extends Controller
 {
     /**
-     * @Route("/umfrage")
+     * @Route("/umfrage",
+     *      name="index_survey")
      */
     public function surveyStartAction()
     {
@@ -26,7 +27,8 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/start", name="choice_survey")
+     * @Route("/umfrage/start",
+     *      name="choice_survey")
      */
     public function surveyChoiceAction()
     {
@@ -37,7 +39,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}", name="single_survey", requirements={"digit": "\d+"})
+     * @Route("/umfrage/{digit}",
+     *      name="single_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function surveyQuestionAction($digit)
     {
@@ -53,7 +57,8 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/ende", name="endof_survey")
+     * @Route("/umfrage/ende",
+     *      name="endof_survey")
      */
     public function surveyEndAction(Request $request)
     {
@@ -73,7 +78,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/statistic", name="statistic_survey", requirements={"digit": "\d+"})
+     * @Route("/umfrage/{digit}/statistic",
+     *      name="statistic_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function surveyStatisticAction($digit)
     {
@@ -89,7 +96,8 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/neue_kategorie", name="newcategory_survey")
+     * @Route("/umfrage/neue_kategorie",
+     *      name="newcategory_survey")
      */
     public function surveyCategoryAction()
     {
@@ -97,7 +105,8 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/neue_kategorie/hinzufuegen", name="categoryadd_survey")
+     * @Route("/umfrage/neue_kategorie/hinzufuegen",
+     *      name="categoryadd_survey")
      */
     public function surveyCategoryAddAction(Request $request)
     {
@@ -113,7 +122,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/", name="newquestion_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/",
+     *      name="newquestion_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function surveyNewQuestionAction($digit)
     {
@@ -121,7 +132,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/start", name="newquestionstart_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/start",
+     *      name="newquestionstart_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function surveyNewQuestionStartAction(Request $request, $digit)
     {
@@ -132,7 +145,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/hinzufuegen/{digit2}", name="newquestionadd_survey")
+     * @Route("/umfrage/{digit}/bearbeiten/neue_frage/hinzufuegen/{digit2}",
+     *      name="newquestionadd_survey",
+     *      requirements={"digit": "\d+", "digit2": "\d+"})
      */
     public function surveyNewQuestionAddAction(Request $request, $digit, $digit2)
     {
@@ -156,7 +171,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten", name="edit_survey")
+     * @Route("/umfrage/{digit}/bearbeiten",
+     *      name="edit_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function editSurveyAction($digit)
     {
@@ -171,7 +188,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/confirm", name="confirmedit_survey", requirements={"digit": "\d+"})
+     * @Route("/umfrage/{digit}/bearbeiten/confirm",
+     *      name="confirmedit_survey",
+     *      requirements={"digit": "\d+"})
      */
     public function confirmEditSurveyAction(Request $request, $digit)
     {
@@ -190,7 +209,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}", name="addanswer_survey", requirements={"digit": "\d+"})
+     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}",
+     *      name="addanswer_survey",
+     *      requirements={"digit": "\d+", "digit2": "\d+"})
      */
     public function addAnswerAction($digit2)
     {
@@ -198,7 +219,9 @@ class SurveyController extends Controller
     }
 
     /**
-     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}/confirm", name="confirmaddanswer_survey", requirements={"digit": "\d+", "digit2": "\d+"})
+     * @Route("/umfrage/{digit}/bearbeiten/antwort_hinzufuegen/{digit2}/confirm",
+     *      name="confirmaddanswer_survey",
+     *      requirements={"digit": "\d+", "digit2": "\d+"})
      */
     public function confirmAddAnswerAction(Request $request, $digit2)
     {
