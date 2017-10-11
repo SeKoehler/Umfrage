@@ -63,7 +63,7 @@ class Answers
     /**
      * @var integer
      *
-     * @ORM\Column(name="chosen", type="integer", nullable=false)
+     * @ORM\Column(name="chosen", type="integer", nullable=true)
      */
     private $chosen;
 
