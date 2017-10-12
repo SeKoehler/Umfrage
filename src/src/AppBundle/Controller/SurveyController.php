@@ -4,10 +4,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Answers;
-use AppBundle\Entity\Question;
 use AppBundle\Entity\Questions;
 use AppBundle\Entity\SurveyCategory;
-use AppBundle\Entity\Surveypackage;
 use AppBundle\Survey;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +30,7 @@ class SurveyController extends Controller
      */
     public function surveyChoiceAction()
     {
-        $repository = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class);
+        $repository = $this->getDoctrine()->getRepository(SurveyCategory::class);
         $surveys = $repository->findAll();
 
         return $this->render('Survey/showsurvey.html.twig', array('result' => $surveys));
@@ -45,7 +43,7 @@ class SurveyController extends Controller
      */
     public function surveyQuestionAction($digit)
     {
-        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $survey = $this->getDoctrine()->getRepository(SurveyCategory::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 
@@ -84,7 +82,7 @@ class SurveyController extends Controller
      */
     public function surveyStatisticAction($digit)
     {
-        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $survey = $this->getDoctrine()->getRepository(SurveyCategory::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 
@@ -112,7 +110,7 @@ class SurveyController extends Controller
     {
         $array = $request->request->all();
 
-        $newsurvey = new \AppBundle\Entity\Survey();
+        $newsurvey = new SurveyCategory();
         $newsurvey->setSurveyname($array['surveyname']);
         $em = $this->getDoctrine()->getManager();
         $em->persist($newsurvey);
@@ -152,7 +150,7 @@ class SurveyController extends Controller
     public function surveyNewQuestionAddAction(Request $request, $digit, $digit2)
     {
         $em = $this->getDoctrine()->getManager();
-        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $survey = $this->getDoctrine()->getRepository(SurveyCategory::class)->find($digit);
         $array = $request->request->all();
         $newsurvey = new Survey();
         $newquestion = $newsurvey->addNewQuestion($array,$survey,$digit2);
@@ -177,7 +175,7 @@ class SurveyController extends Controller
      */
     public function editSurveyAction($digit)
     {
-        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $survey = $this->getDoctrine()->getRepository(SurveyCategory::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 
@@ -195,7 +193,7 @@ class SurveyController extends Controller
     public function confirmEditSurveyAction(Request $request, $digit)
     {
         $em = $this->getDoctrine()->getManager();
-        $survey = $this->getDoctrine()->getRepository(\AppBundle\Entity\Survey::class)->find($digit);
+        $survey = $this->getDoctrine()->getRepository(SurveyCategory::class)->find($digit);
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findBysurveyId($digit);
         $answers = $this->getDoctrine()->getRepository(Answers::class)->findAll();
 

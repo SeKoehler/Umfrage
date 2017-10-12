@@ -62,9 +62,9 @@ class Questions
     }
 
     /**
-     * @var \Survey
+     * @var \SurveyCategory
      *
-     * @ORM\ManyToOne(targetEntity="Survey")
+     * @ORM\ManyToOne(targetEntity="SurveyCategory")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="surveyId", referencedColumnName="surveyId")
      * })
