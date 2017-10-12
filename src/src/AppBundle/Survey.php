@@ -3,6 +3,7 @@ namespace AppBundle;
 
 use AppBundle\Entity\Answers;
 use AppBundle\Entity\Questions;
+use AppBundle\Entity\SurveyCategory;
 
 
 class Survey
@@ -18,7 +19,7 @@ class Survey
 
     public function newEditSurvey($survey,array $array)
     {
-        $newsurvey=new \AppBundle\Entity\Survey();
+        $newsurvey=new SurveyCategory();
         $newsurvey->setSurveyname($survey->getSurveyname());
         $survey->setSurveyname($array['surveyname']);
         $questions = $survey->getQuestions();

@@ -8,10 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Survey
  *
- * @ORM\Table(name="survey")
+ * @ORM\Table(name="surveycategory")
  * @ORM\Entity
  */
-class Survey
+class SurveyCategory
 {
     /**
      * @var integer
